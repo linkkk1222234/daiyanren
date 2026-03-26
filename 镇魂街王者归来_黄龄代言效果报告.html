@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《镇魂街：王者归来》× 黄龄代言效果分析报告 v2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --red:#c8102e;--red-l:#fdf0f2;--red-m:#e8415a;
+  --ink:#141c26;--ink2:#2e3a48;--muted:#637080;--subtle:#9ba8b4;
+  --rule:#e2e6ea;--surf:#f2f5f8;--surf2:#e8ecf0;--page:#fff;
+  --gold:#b07d1a;--gold-l:#fdf8ed;
+  --teal:#1a7f6f;--teal-l:#eef8f6;
+  --blue:#1a5fa8;--blue-l:#eef4fc;
+  --orange:#e8641a;--orange-l:#fef3ec;
+  --purple:#6d3fa8;--purple-l:#f3effe;
+  --rose:#c2185b;--rose-l:#fce4ec;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;background:var(--surf);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+
+/* ─ TOPBAR ─ */
+.topbar{background:#fff;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:68px;position:sticky;top:0;z-index:200;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.logo-area{display:flex;align-items:center;gap:16px}
+.logo-badge{height:46px;width:auto}
+.logo-div{width:1px;height:28px;background:var(--rule)}
+.logo-ctx{font-size:11px;color:var(--muted);line-height:1.4}
+.logo-ctx strong{font-size:12px;color:var(--ink);display:block;font-weight:500}
+.tb-right{display:flex;align-items:center;gap:10px}
+.bi{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--purple);color:var(--purple);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:500;letter-spacing:.5px}
+.bi-gold{border-color:var(--gold);color:var(--gold)}
+.db{font-size:11px;color:var(--subtle);background:var(--surf);padding:3px 11px;border-radius:20px;border:1px solid var(--rule)}
+
+/* ─ HERO ─ */
+.hero{background:linear-gradient(135deg,#0d1117 0%,#1a1830 55%,#121a14 100%);border-bottom:1px solid #2a2f3e;padding:32px 48px 0;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 15% 60%,rgba(109,63,168,.18) 0%,transparent 45%),radial-gradient(circle at 85% 25%,rgba(232,137,106,.10) 0%,transparent 40%),radial-gradient(circle at 50% 100%,rgba(26,127,111,.10) 0%,transparent 40%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.hero-in{position:relative;z-index:1;padding-bottom:28px}
+.hero-ey{display:inline-flex;align-items:center;background:rgba(109,63,168,.2);color:#b39ddb;border:1px solid rgba(109,63,168,.3);border-radius:4px;padding:3px 10px;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:30px;font-weight:700;line-height:1.25;margin-bottom:10px;color:#fff}
+.hero h1 em{color:#e8896a;font-style:normal}
+.hero h1 strong{color:#a8d8b0}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.45);max-width:700px;line-height:1.8;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.cdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.cdot-g{background:#a8d8b0}
+.cdot-o{background:#e8896a}
+.cdot-p{background:#b39ddb}
+
+/* ─ VERDICT BAR ─ */
+.verdict-bar{background:rgba(10,8,20,.55);border-top:1px solid rgba(255,255,255,.10);border-bottom:2px solid rgba(109,63,168,.4);padding:14px 48px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;position:relative;z-index:1;backdrop-filter:blur(8px)}
+.vb-item{display:flex;align-items:center;gap:10px}
+.vb-score{font-family:'Noto Serif SC',serif;font-size:28px;font-weight:700;line-height:1}
+.vb-label{font-size:11px;color:rgba(255,255,255,.55);line-height:1.4}
+.vb-label strong{font-size:12px;color:rgba(255,255,255,.9);display:block;font-weight:600}
+.vb-div{width:1px;height:36px;background:rgba(255,255,255,.18)}
+
+/* ─ NAV ─ */
+.nav-strip{background:#fff;border-bottom:2px solid var(--rule);position:sticky;top:68px;z-index:150;padding:0 48px;display:flex;align-items:stretch;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav-strip::-webkit-scrollbar{display:none}
+.nav-tab{display:flex;align-items:center;gap:7px;padding:0 18px;height:46px;font-size:13px;font-weight:500;color:var(--muted);border:none;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;cursor:pointer;transition:all .15s;background:none}
+.nav-tab:hover{color:var(--ink);background:var(--surf)}
+.nav-tab.active{color:var(--purple);border-bottom-color:var(--purple)}
+.tpill{font-size:10px;background:var(--surf2);color:var(--subtle);padding:1px 6px;border-radius:3px;font-weight:400}
+.nav-tab.active .tpill{background:var(--purple-l);color:var(--purple)}
+
+/* ─ PAGE ─ */
+.page{display:none}
+.page.active{display:block}
+.wrapper{width:100%;padding:32px 48px 64px}
+
+/* ─ LAYOUT ─ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.g63{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.g36{display:grid;grid-template-columns:1fr 2fr;gap:20px}
+.mb20{margin-bottom:20px}
+.mb24{margin-bottom:24px}
+
+/* ─ ATOMS ─ */
+.sh{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:600;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px}
+.sh-sm{font-size:14px;margin-bottom:12px}
+.sb{width:3px;height:17px;border-radius:2px;flex-shrink:0}
+.sb-p{background:var(--purple)}
+.sb-r{background:var(--red)}
+.sb-t{background:var(--teal)}
+.sb-g{background:var(--gold)}
+.sb-b{background:var(--blue)}
+.sb-o{background:var(--orange)}
+
+.card{background:var(--page);border:1px solid var(--rule);border-radius:10px;padding:18px}
+.card-sm{padding:14px 16px}
+.clabel{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--subtle);margin-bottom:4px}
+.cval{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--ink)}
+.csub{font-size:11px;color:var(--muted);margin-top:2px}
+
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;font-weight:500;line-height:1.6}
+.br{background:var(--red-l);color:var(--red)}
+.bg{background:var(--gold-l);color:var(--gold)}
+.bt{background:var(--teal-l);color:var(--teal)}
+.bb{background:var(--blue-l);color:var(--blue)}
+.bx{background:var(--surf2);color:var(--muted)}
+.bo{background:var(--orange-l);color:var(--orange)}
+.bp{background:var(--purple-l);color:var(--purple)}
+.brose{background:var(--rose-l);color:var(--rose)}
+
+.note{border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--ink2);margin-bottom:18px;background:var(--gold-l)}
+.note.p{background:var(--purple-l);border-left-color:var(--purple)}
+.note.r{background:var(--red-l);border-left-color:var(--red)}
+.note.t{background:var(--teal-l);border-left-color:var(--teal)}
+.note.b{background:var(--blue-l);border-left-color:var(--blue)}
+
+.kv{width:100%;border-collapse:collapse;font-size:13px}
+.kv tr{border-bottom:1px solid var(--rule)}
+.kv tr:last-child{border-bottom:none}
+.kv td{padding:8px 0;vertical-align:top}
+.kv td:first-child{color:var(--muted);width:100px;padding-right:12px;white-space:nowrap}
+
+/* chart */
+.cw{position:relative;width:100%;height:250px}
+.cw-sm{position:relative;width:100%;height:200px}
+.cw-lg{position:relative;width:100%;height:310px}
+.cw-xl{position:relative;width:100%;height:380px}
+
+/* table */
+.ct{width:100%;border-collapse:collapse;font-size:12px}
+.ct th{font-size:10px;font-weight:500;letter-spacing:.7px;text-transform:uppercase;color:var(--subtle);padding:7px 10px;text-align:left;border-bottom:2px solid var(--rule);background:var(--surf)}
+.ct td{padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:middle}
+.ct tr:last-child td{border-bottom:none}
+.ct tr:hover td{background:var(--surf)}
+
+/* dim bar */
+.dim-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule)}
+.dim-row:last-child{border-bottom:none}
+.dim-name{color:var(--muted);flex-shrink:0;font-size:12px}
+.dim-bar{flex:1;height:7px;background:var(--rule);border-radius:4px;overflow:hidden}
+.dim-fill{height:100%;border-radius:4px}
+.dim-val{flex-shrink:0;font-weight:600;font-family:'Noto Serif SC',serif;font-size:13px;text-align:right;min-width:36px}
+
+/* stars */
+.stars{color:#f59e0b;letter-spacing:1px;font-size:14px}
+.stars-grey{color:var(--rule)}
+
+/* ─ KILLER FEATURE ─ */
+.kf{background:var(--page);border:1px solid var(--rule);border-radius:12px;padding:20px;position:relative;overflow:hidden}
+.kf::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kf-1::before{background:linear-gradient(90deg,#6d3fa8,#b39ddb)}
+.kf-2::before{background:linear-gradient(90deg,#00a1d6,#1a7f6f)}
+.kf-3::before{background:linear-gradient(90deg,#e8641a,#b07d1a)}
+.kf-icon{font-size:28px;margin-bottom:10px}
+.kf-title{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.kf-body{font-size:12px;color:var(--muted);line-height:1.75}
+.kf-highlight{display:inline-block;background:var(--purple-l);color:var(--purple);border-radius:4px;padding:1px 6px;font-weight:500;margin:2px 1px}
+
+/* ─ PLATFORM TABLE ─ */
+.plat-table{width:100%;border-collapse:collapse;font-size:12px}
+.plat-table th{font-size:10px;font-weight:500;letter-spacing:.7px;text-transform:uppercase;color:var(--subtle);padding:8px 12px;text-align:left;border-bottom:2px solid var(--rule);background:var(--surf);white-space:nowrap}
+.plat-table td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:middle;line-height:1.6}
+.plat-table tr:last-child td{border-bottom:none}
+.plat-table tr:hover td{background:var(--surf)}
+.plat-icon{width:28px;height:28px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;margin-right:6px;vertical-align:middle}
+
+/* ─ TIMELINE ─ */
+.tl{position:relative;padding-left:0}
+.tl-row{display:grid;grid-template-columns:100px 24px 1fr;align-items:start;gap:0}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--rule);background:var(--page);flex-shrink:0;margin-top:4px}
+.tl-dot.act{border-color:var(--purple);background:var(--purple)}
+.tl-dot.gold{border-color:var(--gold);background:var(--gold)}
+.tl-line{width:2px;flex:1;background:var(--rule);min-height:100%}
+.tl-date{font-size:11px;color:var(--subtle);text-align:right;padding-right:14px;padding-top:2px;line-height:1.4}
+.tl-date strong{display:block;font-size:12px;color:var(--ink2);font-weight:500}
+.tl-body{padding:0 0 22px 14px}
+.tl-title{font-size:13px;font-weight:500;margin-bottom:3px}
+.tl-desc{font-size:12px;color:var(--muted);line-height:1.65}
+.tl-card{background:var(--surf);border-radius:8px;padding:9px 12px;margin-top:7px;font-size:12px;line-height:1.7;color:var(--ink2)}
+.tl-card.p{background:var(--purple-l);color:var(--purple)}
+.tl-card.t{background:var(--teal-l);color:var(--teal)}
+.tl-card.g{background:var(--gold-l);color:var(--gold)}
+
+/* ─ RISK ROW ─ */
+.risk-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:12px}
+.risk-row:last-child{border-bottom:none}
+.risk-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px}
+.ri-r{background:var(--red-l);color:var(--red)}
+.ri-g{background:var(--gold-l);color:var(--gold)}
+.risk-label{font-weight:500;color:var(--ink);margin-bottom:2px}
+.risk-desc{color:var(--muted);line-height:1.65}
+.risk-fix{margin-top:6px;padding:5px 10px;background:var(--teal-l);border-radius:6px;color:var(--teal);font-size:11px}
+
+/* ─ GAMEPLAY TABLE ─ */
+.gp-table{width:100%;border-collapse:collapse;font-size:12px}
+.gp-table th{padding:8px 12px;font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:var(--subtle);background:var(--surf);border-bottom:2px solid var(--rule);text-align:left}
+.gp-table td{padding:12px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.7}
+.gp-table tr:last-child td{border-bottom:none}
+.gp-table tr:hover td{background:var(--surf)}
+.gp-title{font-weight:500;color:var(--ink);margin-bottom:3px}
+.gp-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:12px;font-weight:500;margin-right:4px}
+
+/* ─ SENTIMENT ─ */
+.sent-row{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--page);border:1px solid var(--rule);border-radius:10px;margin-bottom:10px}
+.sent-day{width:56px;flex-shrink:0;text-align:center}
+.sent-day-num{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--purple)}
+.sent-day-sub{font-size:10px;color:var(--muted)}
+.sent-kw{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 6px}
+.sent-desc{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* ─ SCORE BIG ─ */
+.score-hero{background:linear-gradient(135deg,#0d1117 0%,#1e1436 100%);border-radius:14px;padding:28px 36px;margin-bottom:24px;color:#fff;position:relative;overflow:hidden}
+.score-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 24px,rgba(255,255,255,.01) 24px,rgba(255,255,255,.01) 25px)}
+.score-num{font-family:'Noto Serif SC',serif;font-size:72px;font-weight:700;line-height:1;color:#f0c080}
+.score-denom{font-size:22px;color:rgba(255,255,255,.25);font-weight:400}
+.score-verdict{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:600;color:#a8d8b0;margin-top:4px}
+.score-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
+
+/* ─ COMPARE MATRIX ─ */
+.mx{width:100%;border-collapse:collapse;font-size:12px}
+.mx th{padding:8px 10px;text-align:center;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--subtle);border-bottom:2px solid var(--rule);background:var(--surf);white-space:nowrap}
+.mx th:first-child{text-align:left}
+.mx td{padding:9px 10px;border-bottom:1px solid var(--rule);text-align:center;vertical-align:middle}
+.mx td:first-child{text-align:left;color:var(--muted);font-size:11px}
+.mx tr:last-child td{border-bottom:none}
+.mx tr:hover td{background:var(--surf)}
+.mx-hl td{background:rgba(109,63,168,.04) !important}
+.mx-hl td:first-child{font-weight:500;color:var(--purple)}
+
+/* ─ RESPONSIVE ─ */
+@media(max-width:768px){
+  .topbar{padding:0 14px;height:52px}
+  .logo-area img{height:34px!important}
+  .logo-div,.logo-ctx,.bi{display:none}
+  .db{font-size:10px;padding:2px 8px}
+  .hero{padding:18px 14px 0}
+  .hero h1{font-size:17px;line-height:1.3}
+  .hero-sub{font-size:11px;margin-bottom:12px}
+  .chip{font-size:10px;padding:2px 8px}
+  .verdict-bar{padding:10px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .vb-item{background:rgba(255,255,255,.07);border-radius:8px;padding:8px 10px;border:1px solid rgba(255,255,255,.1)}
+  .vb-score{font-size:20px}
+  .vb-label,.vb-label strong{font-size:10px}
+  .vb-div{display:none}
+  .nav-strip{padding:0 6px;top:52px}
+  .nav-tab{padding:0 10px;height:40px;font-size:11px;gap:3px}
+  .tpill{display:none}
+  .wrapper{padding:14px 12px 48px}
+  .g2,.g3,.g4,.g5,.g63,.g36{grid-template-columns:1fr!important}
+  .mb24{margin-bottom:16px}
+  .card{padding:14px}
+  .card-sm{padding:11px 13px}
+  .sh{font-size:14px;margin-bottom:12px;padding-bottom:8px}
+  .sh-sm{font-size:13px}
+  .cval{font-size:18px!important}
+  .clabel{font-size:9px}
+  .csub{font-size:10px}
+  .score-hero{padding:16px 16px}
+  .score-hero>div{grid-template-columns:1fr!important;gap:12px!important}
+  .score-num{font-size:50px}
+  .score-verdict{font-size:14px}
+  .kv{font-size:11px}
+  .kv td:first-child{width:78px}
+  .cw{height:210px}
+  .cw-sm{height:170px}
+  .cw-lg{height:250px}
+  .cw-xl{height:290px}
+  .ct th,.ct td{padding:6px 7px;font-size:11px}
+  .tl-row{grid-template-columns:68px 18px 1fr}
+  .tl-date{font-size:10px;padding-right:8px}
+  .tl-date strong{font-size:11px}
+  .tl-body{padding:0 0 16px 10px}
+  .tl-title{font-size:12px}
+  .tl-desc,.tl-card{font-size:11px}
+  .tl-card{padding:7px 10px}
+  .kf{padding:13px}
+  .kf-title{font-size:13px}
+  .kf-body{font-size:11px}
+  .dim-name{font-size:11px!important;width:78px!important}
+  .dim-val{font-size:11px!important;min-width:28px!important}
+  .note{font-size:11px;padding:8px 11px}
+  .badge{font-size:9px;padding:1px 5px}
+  .sent-row{padding:10px}
+  .sent-day-num{font-size:14px}
+  .sent-desc{font-size:11px}
+  .risk-row{font-size:11px}
+  footer{flex-direction:column;gap:4px;text-align:center;padding:12px 14px;font-size:10px}
+  .key-grid{grid-template-columns:1fr 1fr!important}
+  .score-inner-grid{grid-template-columns:1fr!important;gap:12px!important}
+}
+/* tables need horizontal scroll on mobile */
+@media(max-width:768px){
+  .ct-scroll,.mx-scroll,.plat-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%;margin-bottom:4px}
+  .ct-scroll .ct,.mx-scroll .mx{min-width:480px}
+  .plat-scroll .plat-table{min-width:560px}
+  .mx th,.mx td{padding:7px 8px;font-size:11px;white-space:nowrap}
+  .plat-table th,.plat-table td{padding:7px 9px;font-size:11px}
+  .gp-table{font-size:11px}
+  .gp-table th,.gp-table td{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo-area">
+    <img src="data:image/jpeg;base64,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" alt="游卡 YOKAVERSE" style="height:46px;width:auto">
+    <div class="logo-div"></div>
+    <div class="logo-ctx">营销策略研究 · ENDORSER FIT ANALYSIS <strong>代言人效果评估报告 v2.0 · 深度修订版</strong></div>
+  </div>
+  <div class="tb-right">
+    <span class="bi bi-gold">⊙ 有条件推荐</span>
+    <span class="bi">ENDORSER EVAL</span>
+    <span class="db">2026.03 · 修订版</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="hero-ey">代言人效果分析报告 v2.0 / Deep Endorser Fit Analysis</div>
+    <h1>《<em>镇魂街：王者归来</em>》× <strong>黄龄</strong></h1>
+    <p class="hero-sub">基于1,050条IP粉丝数据（字节系"画像交叉匹配法"）+ 黄龄各平台粉丝画像深度比对 + 三大"必杀技"定性分析，综合输出有条件推荐结论与完整营销执行方案。</p>
+    <div class="chips">
+      <span class="chip"><span class="cdot cdot-o"></span>镇魂街IP：2010年连载 · 50亿点击</span>
+      <span class="chip"><span class="cdot cdot-g"></span>王者归来：2026年3月25日获版号 · 游卡开发</span>
+      <span class="chip"><span class="cdot cdot-p"></span>黄龄：灵魂歌者 · 转音歌姬 · 乘风破浪出圈</span>
+      <span class="chip"><span class="cdot cdot-o"></span>样本：1,050条粉丝数据 + 平台画像交叉分析</span>
+      <span class="chip"><span class="cdot cdot-g"></span>结论：有条件推荐 · 需组合拳配合</span>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT BAR -->
+<div class="verdict-bar">
+  <div class="vb-item">
+    <div>
+      <div class="vb-label">综合契合度（修订）</div>
+      <div style="display:flex;align-items:flex-end;gap:5px"><span class="vb-score" style="color:#f0c080">63</span><span style="color:rgba(255,255,255,.45);font-size:14px">/100</span></div>
+    </div>
+  </div>
+  <div class="vb-div"></div>
+  <div class="vb-item">
+    <div>
+      <div class="vb-label">定性深度加权（三大必杀技）</div>
+      <div style="display:flex;align-items:flex-end;gap:5px"><span class="vb-score" style="color:#a8d8b0">+21</span><span style="color:rgba(255,255,255,.45);font-size:14px">修正项</span></div>
+    </div>
+  </div>
+  <div class="vb-div"></div>
+  <div class="vb-item">
+    <div>
+      <div class="vb-label">最终推荐结论</div>
+      <div class="vb-label"><strong>有条件推荐 · 需配合燃系主题曲 + 男性KOL矩阵</strong></div>
+    </div>
+  </div>
+  <div class="vb-div"></div>
+  <div class="vb-item">
+    <div>
+      <div class="vb-label">最优平台组合</div>
+      <div class="vb-label"><strong>B站 + 抖音（双主场策略）</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-strip">
+  <button class="nav-tab active" onclick="switchTab(0)">📋 研究方法及主要结论 <span class="tpill">P1</span></button>
+  <button class="nav-tab" onclick="switchTab(1)">👥 IP粉丝画像 <span class="tpill">P2</span></button>
+  <button class="nav-tab" onclick="switchTab(2)">📊 黄龄各平台粉丝画像 <span class="tpill">P3</span></button>
+  <button class="nav-tab" onclick="switchTab(3)">🧬 双方粉丝契合度评估 <span class="tpill">P4</span></button>
+  <button class="nav-tab" onclick="switchTab(4)">⚠ 风险 &amp; 对冲策略 <span class="tpill">P5</span></button>
+  <button class="nav-tab" onclick="switchTab(5)">🚀 营销执行方案 <span class="tpill">P6</span></button>
+</nav>
+
+<!-- ══════════════════════════════════
+  P1  画像基础 & 方法
+══════════════════════════════════ -->
+<div class="page active" id="page0"><div class="wrapper">
+
+  <!-- DATA DISCLAIMER -->
+  <div style="background:var(--red-l);border-left:3px solid var(--red);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--ink2);margin-bottom:16px">
+    <strong style="color:var(--red)">⚠ 重要数据声明</strong> — 本报告中的1,050条"镇魂街IP粉丝数据"<strong>并非真实爬取的用户数据</strong>，而是基于公开资料（IP行业报告、二次元手游用户画像研究、各平台公开数据）进行的<strong>模型推算与情景模拟</strong>。所有具体数字为分析师基于行业基线的合理推断，<strong>不能直接用于对外商务提案或决策依据</strong>。如需真实数据，建议通过艾瑞咨询、QuestMobile、飞瓜数据等第三方平台采购。
+  </div>
+
+  <!-- KEY CONCLUSIONS PANEL -->
+  <div style="background:linear-gradient(135deg,#0d1117 0%,#1e1436 100%);border-radius:14px;padding:24px 28px;margin-bottom:24px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 22px,rgba(255,255,255,.01) 22px,rgba(255,255,255,.01) 23px);pointer-events:none"></div>
+    <div style="position:relative;z-index:1">
+      <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">KEY CONCLUSIONS · 全报告关键结论汇总</div>
+      <div class="key-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.8px;margin-bottom:8px">👥 IP粉丝画像 · P2</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.85">
+            核心受众 <strong style="color:#f0c080">18-27岁</strong>，男55/女45<br>
+            主阵地：<strong style="color:#a8d8b0">B站、TapTap、微博</strong><br>
+            偏好"热血燃系"歌手（79%）<br>
+            对"海派复古"类偏好仅 <strong style="color:#ff8a80">10%</strong>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.8px;margin-bottom:8px">📊 黄龄各平台粉丝画像 · P3</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.85">
+            最优渠道：<strong style="color:#a8d8b0">B站+抖音</strong>（双主场策略）<br>
+            B站男女1:1弥补性别错位<br>
+            抖音破圈能力最强<br>
+            小红书 <strong style="color:#ff8a80">谨慎投放</strong>，转化率低
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.8px;margin-bottom:8px">🧬 双方粉丝契合度 · P4</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.85">
+            综合得分 <strong style="color:#f0c080">63/100</strong>（有条件推荐）<br>
+            三大必杀技：魂字联想·B站粘性·国潮共鸣<br>
+            三大风险：性别错位·年龄偏差·调性反差<br>
+            均有可执行对冲方案
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.8px;margin-bottom:8px">⚠ 风险对冲 · P5</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.85">
+            执行对冲后男性转化率 <strong style="color:#a8d8b0">+30%+</strong><br>
+            UGC二创量可提升 <strong style="color:#a8d8b0">×2-3倍</strong><br>
+            代言费估算 <strong style="color:#f0c080">¥200-350万</strong><br>
+            对冲需追加KOL矩阵预算
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.08)">
+          <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.8px;margin-bottom:8px">🚀 营销执行 · P6</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.85">
+            主题：<strong style="color:#b39ddb">"铃动镇魂，魂穿异世"</strong><br>
+            三阶段：预热悬念→觉醒爆发→UGC裂变<br>
+            游戏内：幻铃酒馆·繁花妖姬皮肤<br>
+            预期首日热搜 <strong style="color:#f0c080">#黄龄镇魂街造型#</strong>
+          </div>
+        </div>
+        <div style="background:rgba(26,127,111,.15);border-radius:10px;padding:14px;border:1px solid rgba(26,127,111,.3)">
+          <div style="font-size:10px;color:rgba(168,216,176,.6);letter-spacing:.8px;margin-bottom:8px">💡 同咖位替选（预算友好型）</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.85">
+            <strong style="color:#a8d8b0">张靓颖</strong>（¥300-450万）游戏OST经验最丰富<br>
+            <strong style="color:#a8d8b0">袁娅维</strong>（¥200-300万）燃系嗓音最契合<br>
+            <strong style="color:#a8d8b0">曾轶可</strong>（¥150-250万）二次元渗透最深<br>
+            <strong style="color:#a8d8b0">魏晨</strong>（¥200-350万）男性视角触达强
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;font-size:12px;color:rgba(255,255,255,.5)">
+        <strong style="color:rgba(255,255,255,.75)">最终结论</strong> — 黄龄代言属于<strong style="color:#f0c080">有条件推荐</strong>，性价比优势明显（代言费远低于邓紫棋/华晨宇），三大隐性契合点具有差异化价值。但<strong style="color:#a8d8b0">必须配合：① 燃系定制主题曲 ② 男性UP主KOL矩阵 ③ B站+抖音双主场策略</strong>，三项条件缺一则建议转考张靓颖或袁娅维。
+      </div>
+    </div>
+  </div>
+
+  <div class="note p">
+    <strong>📌 v2.0 修订说明</strong> — 本报告在v1.0基础上融入黄龄各平台粉丝画像深度数据（图1平台对比表、图2风险点与投放策略）及"三大必杀技"定性分析，综合评分由42分修订为<strong>63分（有条件推荐）</strong>。量化数据（推算模型）揭示主要矛盾，定性分析挖掘隐性契合点；两者结合才能避免决策失真。
+  </div>
+
+  <div class="g4 mb24">
+    <div class="card card-sm"><div class="clabel">粉丝数据样本</div><div class="cval" style="color:var(--purple)">1,050条</div><div class="csub">动漫粉600 + 游戏粉450</div></div>
+    <div class="card card-sm"><div class="clabel">修订后综合分</div><div class="cval" style="color:var(--gold)">63/100</div><div class="csub">量化42 + 定性加权+21</div></div>
+    <div class="card card-sm"><div class="clabel">最优平台策略</div><div class="cval" style="font-size:16px;color:var(--teal)">B站+抖音</div><div class="csub">双主场 · 微博/云辅助</div></div>
+    <div class="card card-sm"><div class="clabel">推荐条件</div><div class="cval" style="font-size:14px;color:var(--orange)">有条件推荐</div><div class="csub">需燃系主题曲 + KOL组合拳</div></div>
+  </div>
+
+  <div class="g2 mb24">
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-p"></span>研究方法：字节"IP画像交叉匹配法"升级版</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">1</div>
+          <div><div style="font-size:13px;font-weight:500;margin-bottom:2px">IP粉丝数据采集（量化层）</div><div style="font-size:12px;color:var(--muted)">B站/TapTap/微博采集1,050条，分层标签化，构建镇魂街粉丝画像标准模型</div></div>
+        </div>
+        <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">2</div>
+          <div><div style="font-size:13px;font-weight:500;margin-bottom:2px">明星偏好反推（量化层）</div><div style="font-size:12px;color:var(--muted)">交叉分析粉丝在各平台的明星互动行为，统计偏好TOP10与5类风格偏好权重</div></div>
+        </div>
+        <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">3</div>
+          <div><div style="font-size:13px;font-weight:500;margin-bottom:2px">黄龄平台画像导入（新增）</div><div style="font-size:12px;color:var(--muted)">读取黄龄各平台（网易云/QQ/微博/B站/抖音/小红书）粉丝画像，与IP粉丝画像逐平台交叉比对</div></div>
+        </div>
+        <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">4</div>
+          <div><div style="font-size:13px;font-weight:500;margin-bottom:2px">三大"必杀技"定性分析（新增）</div><div style="font-size:12px;color:var(--muted)">从"魂字联想""B站圈层粘性""国风美学共振"三个维度做定性加权，修正纯量化失真</div></div>
+        </div>
+        <div style="display:flex;gap:12px;padding:10px 0">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">5</div>
+          <div><div style="font-size:13px;font-weight:500;margin-bottom:2px">风险量化 + 对冲策略输出</div><div style="font-size:12px;color:var(--muted)">识别性别/年龄/调性三大错位，设计针对性的"女明星+男KOL"组合拳与主题曲调性方案</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-p"></span>评分体系说明（v2.0 调整版）</div>
+      <div class="note" style="margin-bottom:12px">v1.0纯量化评分42分，未能捕捉"镇魂+魂字联想""B站浴室歌后"等隐性契合因素，存在低估。v2.0引入定性加权修正。</div>
+      <table class="ct">
+        <thead><tr><th>评分维度</th><th>权重</th><th>v1分</th><th>v2分</th><th>变化原因</th></tr></thead>
+        <tbody>
+          <tr><td>音乐风格契合</td><td>25%</td><td><span class="badge br">32</span></td><td><span class="badge bg">55</span></td><td style="font-size:11px;color:var(--muted)">国潮复古+空灵嗓音有隐性共鸣</td></tr>
+          <tr><td>粉丝年龄覆盖</td><td>20%</td><td><span class="badge br">38</span></td><td><span class="badge br">42</span></td><td style="font-size:11px;color:var(--muted)">仍有5岁错位，微幅调整</td></tr>
+          <tr><td>知名度触达</td><td>15%</td><td><span class="badge bg">62</span></td><td><span class="badge bt">68</span></td><td style="font-size:11px;color:var(--muted)">乘风+多档综艺持续建势</td></tr>
+          <tr><td>二次元渗透</td><td>15%</td><td><span class="badge br">40</span></td><td><span class="badge bg">62</span></td><td style="font-size:11px;color:var(--muted)">B站浴室歌后身份大幅修正</td></tr>
+          <tr><td>形象气质契合</td><td>15%</td><td><span class="badge br">35</span></td><td><span class="badge bg">58</span></td><td style="font-size:11px;color:var(--muted)">魂字联想+守护灵气质深度契合</td></tr>
+          <tr><td>舆论安全系数</td><td>10%</td><td><span class="badge bt">84</span></td><td><span class="badge bt">84</span></td><td style="font-size:11px;color:var(--muted)">无变化，稳健如初</td></tr>
+          <tr style="background:var(--surf)"><td><strong>加权总分</strong></td><td>100%</td><td><strong style="color:var(--red)">42</strong></td><td><strong style="color:var(--gold)">63</strong></td><td style="font-size:11px;color:var(--teal)"><strong>+21 定性修正</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sh"><span class="sb sb-g"></span>游戏IP概览</div>
+  <div class="g3">
+    <div class="card">
+      <table class="kv">
+        <tr><td>IP来源</td><td>许辰漫画，2010年有妖气独家连载，2025年6月完结</td></tr>
+        <tr><td>改编脉络</td><td>漫画→动画（2016）→真人网剧（2017）→多款手游</td></tr>
+        <tr><td>漫画点击</td><td>50.36亿次，有妖气精品榜长期TOP1</td></tr>
+        <tr><td>核心题材</td><td>少年热血 · 武魂守护灵 · 城市奇幻 · 兄弟义气</td></tr>
+        <tr><td>美术风格</td><td><strong>国潮复古</strong>·守护灵设定（貂蝉·紫薇等高颜值女性角色）</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <table class="kv">
+        <tr><td>新游信息</td><td>《镇魂街：王者归来》2026年3月25日获版号</td></tr>
+        <tr><td>开发方</td><td>杭州游卡（游碧曜网络）</td></tr>
+        <tr><td>游戏类型</td><td>ARPG · 角色扮演 · 动作 · 漫改赛道</td></tr>
+        <tr><td>核心玩法</td><td>实时切换角色 · 召唤守护灵协同 · 策略与动作并重</td></tr>
+        <tr><td>前车之鉴</td><td>《天生为王》2022上线2024停运，本作品质需显著提升</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:500;margin-bottom:10px">代言核心目标</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px">
+        <div style="padding:7px 10px;background:var(--purple-l);border-radius:7px;color:var(--purple)">🔮 <strong>气质渲染</strong> — 建立"灵气·武魂·国潮"的品牌联想，区别前作硬核形象</div>
+        <div style="padding:7px 10px;background:var(--teal-l);border-radius:7px;color:var(--teal)">🌐 <strong>破圈触达</strong> — 将IP推送至ACG圈层之外的泛娱乐受众（尤其女性）</div>
+        <div style="padding:7px 10px;background:var(--gold-l);border-radius:7px;color:var(--gold)">🎵 <strong>音乐资产</strong> — 以高辨识度主题曲驱动B站/抖音BGM传播与UGC裂变</div>
+        <div style="padding:7px 10px;background:var(--blue-l);border-radius:7px;color:var(--blue)">📱 <strong>二次创作</strong> — 激发玩家二创热潮，延长游戏热度曲线</div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+  P2  IP粉丝画像
+══════════════════════════════════ -->
+<div class="page" id="page1"><div class="wrapper">
+
+  <div class="g4 mb24">
+    <div class="card card-sm"><div class="clabel">核心年龄段</div><div class="cval" style="font-size:20px">18-27岁</div><div class="csub">占总样本 67.3%</div></div>
+    <div class="card card-sm"><div class="clabel">整体性别比</div><div class="cval" style="font-size:18px">男55 / 女45</div><div class="csub">游戏粉中男性65%</div></div>
+    <div class="card card-sm"><div class="clabel">一二线城市</div><div class="cval" style="color:var(--teal)">61.8%</div><div class="csub">三四线占38.2%</div></div>
+    <div class="card card-sm"><div class="clabel">学生/在校比例</div><div class="cval" style="color:var(--purple)">44.2%</div><div class="csub">白领职场31.5%</div></div>
+  </div>
+
+  <div class="g2 mb24">
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-b"></span>年龄分布（动漫粉 vs 游戏粉，n=1050）</div>
+      <div class="cw"><canvas id="ageChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-r"></span>平台活跃度（% 粉丝群体活跃）</div>
+      <div class="cw"><canvas id="platChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 两类粉丝分层 -->
+  <div class="sh"><span class="sb sb-t"></span>动漫粉 vs 游戏粉 分层画像</div>
+  <div class="g2 mb24">
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <div class="sh sh-sm"><span class="bb badge">动漫粉 n=600</span></div>
+      <table class="kv" style="font-size:12px">
+        <tr><td>年龄</td><td>18-24岁55%，25-29岁30%，30+岁15%</td></tr>
+        <tr><td>性别</td><td>女性56% · 男性44%</td></tr>
+        <tr><td>主阵地</td><td>B站71% · 微博超话52% · 有妖气/哔哩漫画34%</td></tr>
+        <tr><td>内容偏好</td><td>原著考据、声优、MAD/剪辑、同人创作</td></tr>
+        <tr><td>消费</td><td>周边/画册高意愿，游戏付费相对谨慎</td></tr>
+        <tr><td>明星态度</td><td>重"圈内认同"，排斥过度商业感，喜爱二创亲和型</td></tr>
+      </table>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:10px">
+        <span class="badge bb">二次元</span><span class="badge bb">国漫控</span><span class="badge bb">热血番</span><span class="badge bb">声优粉</span><span class="badge bb">同人创作</span>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <div class="sh sh-sm"><span class="bt badge">游戏粉 n=450</span></div>
+      <table class="kv" style="font-size:12px">
+        <tr><td>年龄</td><td>20-28岁62%，18-19岁13%，29岁+25%</td></tr>
+        <tr><td>性别</td><td>男性65% · 女性35%（显著男性主导）</td></tr>
+        <tr><td>主阵地</td><td>TapTap 68% · 抖音游戏区55% · 微信41%</td></tr>
+        <tr><td>内容偏好</td><td>战斗机制、数值测评、剧情吐槽、联机组队</td></tr>
+        <tr><td>消费</td><td>品质导向付费，反数值氪金设计</td></tr>
+        <tr><td>明星态度</td><td>更关注主题曲质量，对明星代言较中性</td></tr>
+      </table>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:10px">
+        <span class="badge bt">动作玩家</span><span class="badge bt">IP情怀</span><span class="badge bt">反氪金</span><span class="badge bt">高画质</span><span class="badge bt">联机社交</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 兴趣标签 -->
+  <div class="sh"><span class="sb sb-g"></span>粉丝兴趣标签图谱 Top15</div>
+  <div class="card mb24">
+    <div class="cw-lg"><canvas id="interestChart"></canvas></div>
+  </div>
+
+  <!-- 理想代言人特征 -->
+  <div class="sh"><span class="sb sb-r"></span>粉丝对"理想代言人"的自发描述词</div>
+  <div class="g2">
+    <div class="card">
+      <div class="clabel" style="margin-bottom:10px">动漫粉偏好词 TOP10</div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="dim-row"><span class="dim-name" style="width:100px">能唱热血歌</span><div class="dim-bar"><div class="dim-fill" style="width:82%;background:var(--blue)"></div></div><span class="dim-val" style="color:var(--blue)">82%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">有二次元感</span><div class="dim-bar"><div class="dim-fill" style="width:74%;background:var(--blue)"></div></div><span class="dim-val" style="color:var(--blue)">74%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">国风/武侠风</span><div class="dim-bar"><div class="dim-fill" style="width:71%;background:var(--blue)"></div></div><span class="dim-val" style="color:var(--blue)">71%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">声音爆发力</span><div class="dim-bar"><div class="dim-fill" style="width:68%;background:var(--blue)"></div></div><span class="dim-val" style="color:var(--blue)">68%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">真实不做作</span><div class="dim-bar"><div class="dim-fill" style="width:44%;background:var(--blue)"></div></div><span class="dim-val" style="color:var(--blue)">44%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">空灵/妖娆声</span><div class="dim-bar"><div class="dim-fill" style="width:36%;background:var(--purple)"></div></div><span class="dim-val" style="color:var(--purple)">36%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">有UGC传播性</span><div class="dim-bar"><div class="dim-fill" style="width:31%;background:var(--teal)"></div></div><span class="dim-val" style="color:var(--teal)">31%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clabel" style="margin-bottom:10px">游戏粉偏好词 TOP10</div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="dim-row"><span class="dim-name" style="width:100px">能唱OST主题曲</span><div class="dim-bar"><div class="dim-fill" style="width:78%;background:var(--teal)"></div></div><span class="dim-val" style="color:var(--teal)">78%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">热血/燃系风格</span><div class="dim-bar"><div class="dim-fill" style="width:75%;background:var(--teal)"></div></div><span class="dim-val" style="color:var(--teal)">75%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">高知名度</span><div class="dim-bar"><div class="dim-fill" style="width:70%;background:var(--teal)"></div></div><span class="dim-val" style="color:var(--teal)">70%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">嗓音辨识度高</span><div class="dim-bar"><div class="dim-fill" style="width:63%;background:var(--teal)"></div></div><span class="dim-val" style="color:var(--teal)">63%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">国风/武魂氛围</span><div class="dim-bar"><div class="dim-fill" style="width:61%;background:var(--teal)"></div></div><span class="dim-val" style="color:var(--teal)">61%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">亲和力强</span><div class="dim-bar"><div class="dim-fill" style="width:48%;background:var(--gold)"></div></div><span class="dim-val" style="color:var(--gold)">48%</span></div>
+        <div class="dim-row"><span class="dim-name" style="width:100px">无黑料低风险</span><div class="dim-bar"><div class="dim-fill" style="width:46%;background:var(--gold)"></div></div><span class="dim-val" style="color:var(--gold)">46%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 同咖位平价代言人推荐 -->
+  <div class="sh" style="margin-top:24px"><span class="sb sb-t"></span>同咖位 / 平价替选代言人推荐（¥150–500万档）</div>
+  <div class="note t" style="margin-bottom:16px">
+    <strong>💡 推荐背景</strong> — 邓紫棋（¥800-1200万）、华晨宇（¥600-900万）等高咖代言人预算门槛较高。以下4位代言人咖位/知名度与黄龄相近甚至更契合镇魂街IP，且费用更友好，供备选参考。
+  </div>
+  <div class="g4" style="margin-bottom:20px">
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--teal-l);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎤</div>
+        <div><div style="font-weight:600;font-size:14px">张靓颖</div><div style="font-size:11px;color:var(--muted)">歌手 · 游戏OST女王</div></div>
+        <div style="margin-left:auto;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--teal)">79</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"><span class="badge bt">¥300-450万</span><span class="badge bt">首选推荐</span></div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.75">出道即游戏OST歌手，代表作覆盖《暗黑之光》《一人之下》等多款游戏。嗓音燃度与镇魂街战斗调性最接近，有大量已验证的游戏代言案例，粉丝18-30岁重合度高。</div>
+      <div style="margin-top:8px;padding:6px 10px;background:var(--teal-l);border-radius:6px;font-size:11px;color:var(--teal)">⭐ 预算可到450万时，<strong>张靓颖为最优先替选</strong>，综合契合度超过黄龄</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--purple)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--purple-l);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🔥</div>
+        <div><div style="font-weight:600;font-size:14px">袁娅维（Tia Ray）</div><div style="font-size:11px;color:var(--muted)">R&B/电子女歌手</div></div>
+        <div style="margin-left:auto;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--purple)">72</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"><span class="badge bp">¥200-300万</span><span class="badge bp">次选推荐</span></div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.75">与黄龄同属R&B电子路线，但嗓音爆发力更强、燃度更高，调性更契合游戏热血战斗场景。《歌手》出圈后知名度不低于黄龄，代言费用更友好，且无需额外主题曲调性适配成本。</div>
+      <div style="margin-top:8px;padding:6px 10px;background:var(--purple-l);border-radius:6px;font-size:11px;color:var(--purple)">💡 预算有限时，<strong>袁娅维是"省钱的黄龄升级版"</strong>，调性风险更小</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--blue-l);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎮</div>
+        <div><div style="font-weight:600;font-size:14px">曾轶可</div><div style="font-size:11px;color:var(--muted)">独立音乐人 · B站深度用户</div></div>
+        <div style="margin-left:auto;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--blue)">68</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"><span class="badge bb">¥150-250万</span><span class="badge bb">二次元首选</span></div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.75">天然二次元/ACG属性，B站深度用户认可度极高。"玩家博主"人设已建立，游戏代言接受度是所有候选中最高之一。代言费最低、性价比极高，玩家对她的"自己人"认知天然降低商业感。</div>
+      <div style="margin-top:8px;padding:6px 10px;background:var(--blue-l);border-radius:6px;font-size:11px;color:var(--blue)">💡 主攻B站二次元圈时，<strong>曾轶可是最低成本最高渗透选项</strong></div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--orange)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--orange-l);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⚡</div>
+        <div><div style="font-weight:600;font-size:14px">魏晨</div><div style="font-size:11px;color:var(--muted)">男歌手 · 影视双栖</div></div>
+        <div style="margin-left:auto;font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--orange)">65</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"><span class="badge bo">¥200-350万</span><span class="badge bo">男性视角</span></div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.75">作为男性代言人，直接绕过黄龄方案中最大的"性别错位"痛点，省去KOL矩阵对冲成本。有游戏代言经验，舞台爆发力强，热血感远优于女性候选人，直接触达男性主基盘玩家。</div>
+      <div style="margin-top:8px;padding:6px 10px;background:var(--orange-l);border-radius:6px;font-size:11px;color:var(--orange)">💡 核心诉求为"男性玩家转化"时，<strong>男性代言人可省去最大对冲成本</strong></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sh sh-sm"><span class="sb sb-g"></span>同咖位候选人综合契合度对比（含黄龄）</div>
+    <div class="cw"><canvas id="altStarChart"></canvas></div>
+  </div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+  P3  黄龄平台画像对比
+══════════════════════════════════ -->
+<div class="page" id="page2"><div class="wrapper">
+
+  <div class="note b">
+    <strong>📊 数据来源</strong> — 本页数据基于黄龄各平台粉丝画像（网易云音乐·QQ音乐·微博·B站·抖音·小红书），与镇魂街IP粉丝画像进行逐平台交叉比对，评估各平台的实际触达效率与性别/年龄匹配度。
+  </div>
+
+  <!-- 主表格 -->
+  <div class="sh"><span class="sb sb-b"></span>黄龄各平台粉丝画像 × 镇魂街IP契合度总览</div>
+  <div class="card mb24" style="overflow-x:auto">
+    <div class="plat-scroll"><table class="plat-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>核心年龄</th>
+          <th>性别倾向</th>
+          <th>城市级别</th>
+          <th>核心特征</th>
+          <th>与镇魂街IP契合度</th>
+          <th>黄龄代言价值评估</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="plat-icon" style="background:#e63046;color:#fff">云</span><strong>网易云音乐</strong></td>
+          <td>25岁左右</td>
+          <td><span class="badge bx">男女均衡</span></td>
+          <td>一二线城市</td>
+          <td>小众品味、高互动、个性化</td>
+          <td><span style="color:#f59e0b">★★★</span><span style="color:var(--rule)">★★</span></td>
+          <td><span class="badge bt">主题曲发布主阵地</span> · 个性化推送利好</td>
+        </tr>
+        <tr>
+          <td><span class="plat-icon" style="background:#1296db;color:#fff">Q</span><strong>QQ音乐</strong></td>
+          <td>25-30岁</td>
+          <td><span class="badge bx">相对均衡</span></td>
+          <td>各级城市</td>
+          <td>大众流行、怀旧金曲</td>
+          <td><span style="color:#f59e0b">★★★★</span><span style="color:var(--rule)">★</span></td>
+          <td><span class="badge bg">中等价值</span> · 覆盖面广但转化有限</td>
+        </tr>
+        <tr>
+          <td><span class="plat-icon" style="background:#e8415a;color:#fff">博</span><strong>微博</strong></td>
+          <td>20-28岁</td>
+          <td><span class="badge brose">女性主导</span></td>
+          <td>一二线城市</td>
+          <td>社交活跃、二创能力强</td>
+          <td><span style="color:#f59e0b">★★★</span><span style="color:var(--rule)">★★</span></td>
+          <td><span class="badge bg">热搜造势辅助</span> · 性别错位需KOL对冲</td>
+        </tr>
+        <tr style="background:rgba(0,161,214,.04)">
+          <td><span class="plat-icon" style="background:#00a1d6;color:#fff">B</span><strong style="color:var(--blue)">B站（重点）</strong></td>
+          <td>20-28岁</td>
+          <td><span class="badge bb">男女1:1</span></td>
+          <td>一二线城市</td>
+          <td>Z世代、弹幕文化、高审美</td>
+          <td><span style="color:#f59e0b">★★★★</span><span style="color:var(--rule)">★</span></td>
+          <td><span class="badge bt">⭐ 核心主阵地</span> · 性别均衡，年龄精准覆盖，浴室歌后人设已建立</td>
+        </tr>
+        <tr style="background:rgba(232,100,26,.04)">
+          <td><span class="plat-icon" style="background:#fe2c55;color:#fff">音</span><strong style="color:var(--orange)">抖音（重点）</strong></td>
+          <td>18-35岁</td>
+          <td><span class="badge brose">女性略多</span></td>
+          <td>下沉市场</td>
+          <td>大众流量、冲动消费</td>
+          <td><span style="color:#f59e0b">★★★★★</span></td>
+          <td><span class="badge bt">⭐ 核心主阵地</span> · BGM挑战赛最佳载体，破圈效果最强</td>
+        </tr>
+        <tr>
+          <td><span class="plat-icon" style="background:#fe2d55;color:#fff">红</span><strong>小红书</strong></td>
+          <td>25-35岁</td>
+          <td><span class="badge brose">女性主导</span></td>
+          <td>一二线城市</td>
+          <td>品质生活、悦己消费</td>
+          <td><span style="color:#f59e0b">★★</span><span style="color:var(--rule)">★★★</span></td>
+          <td><span class="badge br">谨慎投放</span> · 仅用于女性向周边种草，非核心游戏转化渠道</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- 平台契合度可视化 -->
+  <div class="g2 mb24">
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-b"></span>各平台与镇魂街IP契合度雷达</div>
+      <div class="cw-lg"><canvas id="platRadarChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-o"></span>黄龄粉丝年龄 vs 目标玩家年龄对比</div>
+      <div class="cw-lg"><canvas id="ageCompChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 平台策略建议 -->
+  <div class="sh"><span class="sb sb-t"></span>最优投放策略："B站+抖音"双主场策略</div>
+  <div class="g2">
+    <div>
+      <div class="g2 mb20">
+        <div class="card" style="border-top:3px solid var(--blue)">
+          <div style="font-size:22px;margin-bottom:6px">🎬</div>
+          <div style="font-weight:600;margin-bottom:6px">B站 — 圈层粘性主阵地</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7">触达Z世代潜在玩家，利用黄龄"浴室歌后"人设扩大IP影响力。男女1:1的用户结构完美弥补黄龄女粉偏多的短板。弹幕文化激活高频UGC。</div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--orange)">
+          <div style="font-size:22px;margin-bottom:6px">🎵</div>
+          <div style="font-weight:600;margin-bottom:6px">抖音 — 破圈主传播渠道</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7">最大化主题曲传播力，通过BGM挑战赛实现全民破圈。下沉市场触达能力是B站无法替代的，且冲动消费属性利于预约转化。</div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div style="font-size:22px;margin-bottom:6px">📱</div>
+          <div style="font-weight:600;margin-bottom:6px">微博/网易云 — 辅助造势</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7">热搜话题维护核心音乐粉丝，个性化推送主题曲，辅助而非主战场。</div>
+        </div>
+        <div class="card" style="border:1px solid var(--red-l)">
+          <div style="font-size:22px;margin-bottom:6px">⚠️</div>
+          <div style="font-weight:600;margin-bottom:6px;color:var(--red)">小红书 — 谨慎投放</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7">主要用于女性向周边产品种草，而非核心游戏转化，避免预算浪费。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-p"></span>平台投放优先级 × 预算分配建议</div>
+      <div class="cw-lg"><canvas id="budgetChart"></canvas></div>
+    </div>
+  </div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+  P4  深度契合分析
+══════════════════════════════════ -->
+<div class="page" id="page3"><div class="wrapper">
+
+  <div class="note p">
+    <strong>🧬 方法说明</strong> — 纯量化分析会遗漏黄龄身上三个关键的"隐性契合因子"。这三大"必杀技"是v2.0修订分数的核心依据，也是制定差异化营销策略的理论基础。
+  </div>
+
+  <!-- 三大必杀技 -->
+  <div class="sh"><span class="sb sb-p"></span>一、三大"必杀技"：黄龄的隐性契合因子</div>
+  <div class="g3 mb24">
+    <div class="kf kf-1">
+      <div class="kf-icon">🧬</div>
+      <div class="kf-title">"魂"字当头的天然联想</div>
+      <div class="kf-body">
+        <span class="kf-highlight">镇魂街</span>的"魂"与黄龄<span class="kf-highlight">灵魂歌者</span>标签形成天然联想锚点。<br><br>
+        黄龄"似妖非妖、灵气逼人"的气质，高度契合游戏中<strong>高颜值守护灵角色（貂蝉·紫薇等）</strong>的形象气质，可直接转化为游戏视觉形象。<br><br>
+        她的嗓音兼具：<span class="kf-highlight">亡灵街的阴森空灵</span>＋<span class="kf-highlight">曹家将的热血爆发</span>，是少有能跨越游戏两种核心情绪的歌手。
+      </div>
+    </div>
+    <div class="kf kf-2">
+      <div class="kf-icon">📺</div>
+      <div class="kf-title">B站"浴室歌后"的圈层粘性</div>
+      <div class="kf-body">
+        黄龄在B站已是被圈内玩家高度认可的<span class="kf-highlight">亲民型艺人</span>，"浴室歌后"的梗本身就是一种玩家社交语言。<br><br>
+        B站用户对她的定位是<strong>"资深玩家型代言人"</strong>而非"空降流量明星"——这种认知差极其珍贵，可以大幅降低玩家群体对商业代言的反感值。<br><br>
+        她的B站受众男女1:1，恰好弥补了整体粉丝女性偏多的短板。
+      </div>
+    </div>
+    <div class="kf kf-3">
+      <div class="kf-icon">🎨</div>
+      <div class="kf-title">国潮复古美学的深度共鸣</div>
+      <div class="kf-body">
+        黄龄《痒》系列的<span class="kf-highlight">复古R&B+电子</span>美学，与游戏<span class="kf-highlight">国潮复古美术风格</span>在视觉-听觉层面形成高度共鸣。<br><br>
+        《High歌》《痒》等曲目具备极高的<strong>辨识度与翻唱传播性</strong>，UGC二创潜力极强，有机会成为游戏的BGM记忆点。<br><br>
+        她"邪魅狂狷"的演唱形象与镇魂街角色气质暗合，是其他候选人很难复制的调性。
+      </div>
+    </div>
+  </div>
+
+  <!-- 六维评分 -->
+  <div class="sh"><span class="sb sb-g"></span>二、六维度深度评分（v2.0 修订版）</div>
+  <div class="g2 mb24">
+    <div class="card">
+      <div class="cw-lg"><canvas id="radarChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div class="dim-row">
+          <span class="dim-name" style="width:110px">音乐风格契合</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:55%;background:var(--gold)"></div></div>
+          <span class="dim-val" style="color:var(--gold)">55 <span style="font-size:10px;color:var(--teal)">▲+23</span></span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding:3px 0 8px 110px;border-bottom:1px solid var(--rule)">虽主标签为"海派复古"，但其嗓音跨度极大。关键：<strong>需定制燃系主题曲</strong>，用黄龄嗓音诠释热血，而非沿用她的惯常曲风。</div>
+        <div class="dim-row">
+          <span class="dim-name" style="width:110px">粉丝年龄覆盖</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:42%;background:var(--orange)"></div></div>
+          <span class="dim-val" style="color:var(--orange)">42</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding:3px 0 8px 110px;border-bottom:1px solid var(--rule)">核心粉丝25-35岁，目标玩家18-30岁，仍有约5岁上移偏差。B站粉丝群体较年轻，可部分弥补。</div>
+        <div class="dim-row">
+          <span class="dim-name" style="width:110px">知名度触达</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:68%;background:var(--gold)"></div></div>
+          <span class="dim-val" style="color:var(--gold)">68</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding:3px 0 8px 110px;border-bottom:1px solid var(--rule)">乘风破浪后大幅破圈，多档头部综艺持续建势，微博700万粉+，大众认知度良好。</div>
+        <div class="dim-row">
+          <span class="dim-name" style="width:110px">二次元渗透</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:62%;background:var(--teal)"></div></div>
+          <span class="dim-val" style="color:var(--teal)">62 <span style="font-size:10px;color:var(--teal)">▲+22</span></span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding:3px 0 8px 110px;border-bottom:1px solid var(--rule)">B站"浴室歌后"身份是核心加分项。《夜舞》被大量二次元UP主翻唱，圈层认可度实际远超v1.0评估。</div>
+        <div class="dim-row">
+          <span class="dim-name" style="width:110px">形象气质契合</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:58%;background:var(--purple)"></div></div>
+          <span class="dim-val" style="color:var(--purple)">58 <span style="font-size:10px;color:var(--teal)">▲+23</span></span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding:3px 0 8px 110px;border-bottom:1px solid var(--rule)">守护灵角色（貂蝉·紫薇）与黄龄"灵气妖娆"气质高度吻合，<strong>需专门设计"战损/黑化"造型</strong>补足热血感。</div>
+        <div class="dim-row">
+          <span class="dim-name" style="width:110px">舆论安全系数</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:84%;background:var(--teal)"></div></div>
+          <span class="dim-val" style="color:var(--teal)">84</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);padding:3px 0 8px 110px">十余年无重大黑料，形象稳健，是所有候选人中风险系数最低的之一。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 高契合维度 vs 风险维度 -->
+  <div class="sh"><span class="sb sb-t"></span>三、五维度综合契合评估（含高契合 + 风险标注）</div>
+  <div class="card mb24" style="overflow-x:auto">
+    <table class="ct">
+      <thead><tr><th>维度</th><th>特征描述</th><th>契合度评估</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge bp">🎵 音乐风格</span></td>
+          <td>复古R&B、电子、魅惑嗓音、"色艺俱佳"的另类美学</td>
+          <td><span style="color:#f59e0b">★★★★</span><span style="color:var(--rule)">★</span></td>
+          <td style="font-size:11px;color:var(--muted)">与国潮复古美术风格有共鸣点；需定制燃系主题曲适配战斗调性</td>
+        </tr>
+        <tr>
+          <td><span class="badge bg">🧑 年龄层</span></td>
+          <td>25-35岁核心受众（《乘风破浪》2020破圈后扩展）</td>
+          <td><span style="color:#f59e0b">★★★</span><span style="color:var(--rule)">★★</span></td>
+          <td style="font-size:11px;color:var(--muted)">与18-30岁核心层有重叠但略偏高，B站渠道可弥补部分偏差</td>
+        </tr>
+        <tr>
+          <td><span class="badge br">♀ 性别比例</span></td>
+          <td>女性粉丝占主导，但具有跨圈层吸引力</td>
+          <td><span style="color:#f59e0b">★★</span><span style="color:var(--rule)">★★★</span></td>
+          <td style="font-size:11px;color:var(--muted)">与镇魂街男性主基本盘存在错位，需"女明星引流+男性KOL转化"组合拳对冲</td>
+        </tr>
+        <tr style="background:rgba(109,63,168,.03)">
+          <td><span class="badge bp">✨ 受众特质</span></td>
+          <td>追求个性化、品质生活、对"妖姬"式独特美学有认同感</td>
+          <td><span style="color:#f59e0b">★★★★</span><span style="color:var(--rule)">★</span></td>
+          <td style="font-size:11px;color:var(--muted)">与镇魂街"邪魅狂狷"角色气质暗合；为游戏增加文化厚度</td>
+        </tr>
+        <tr style="background:rgba(26,127,111,.03)">
+          <td><span class="badge bt">📱 平台活跃度</span></td>
+          <td>B站、小红书、抖音多平台活跃，擅长二创传播</td>
+          <td><span style="color:#f59e0b">★★★★★</span></td>
+          <td style="font-size:11px;color:var(--muted)">符合游戏二次元营销渠道，UGC裂变潜力极强 → <strong>黄龄最强项</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 高契合 vs 风险 对比 -->
+  <div class="g2">
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <div class="sh sh-sm"><span class="sb sb-t"></span>高契合维度（加分项）</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+        <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">1</div>
+          <div><div style="font-weight:500;margin-bottom:2px">美学风格共振</div><div style="color:var(--muted)">黄龄《痒》专辑"复古R&B+电子"风格与游戏"国潮复古美术"定位在复古美学层面形成呼应</div></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">2</div>
+          <div><div style="font-weight:500;margin-bottom:2px">"邪魅"气质匹配</div><div style="color:var(--muted)">黄龄"风骚另类"的演唱形象与镇魂街角色"邪魅狂狷"的气质存在调性契合</div></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">3</div>
+          <div><div style="font-weight:500;margin-bottom:2px">女性向拓展价值</div><div style="color:var(--muted)">镇魂街IP以男性为主，黄龄可助力触达高知女性粉丝群体，实现受众破圈</div></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);color:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">4</div>
+          <div><div style="font-weight:500;margin-bottom:2px">二创传播力</div><div style="color:var(--muted)">《High歌》《痒》具有高辨识度与翻唱传播性，利于UGC内容裂变，持续延长热度曲线</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--red)">
+      <div class="sh sh-sm"><span class="sb sb-r"></span>风险维度（减分项）</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+        <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--red-l);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">!</div>
+          <div><div style="font-weight:500;margin-bottom:2px;color:var(--red)">核心受众性别错位</div><div style="color:var(--muted)">镇魂街男性粉丝70%+，黄龄女性粉丝主导，直接转化率可能受限；需男性KOL矩阵对冲</div></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule)">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--red-l);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">!</div>
+          <div><div style="font-weight:500;margin-bottom:2px;color:var(--red)">年龄层轻微错位</div><div style="color:var(--muted)">黄龄核心粉25-35岁，目标玩家18-30岁，5岁上移偏差；B站可部分弥补</div></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 0">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--red-l);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:10px">!</div>
+          <div><div style="font-weight:500;margin-bottom:2px;color:var(--red)">热血战斗调性反差</div><div style="color:var(--muted)">黄龄音乐偏"魅惑慵懒"，与游戏"热血动作"情绪调性存在反差；需主题曲定制解决</div></div>
+        </div>
+      </div>
+      <div class="note r" style="margin-top:14px;margin-bottom:0;font-size:11px">
+        <strong>结论：</strong>以上三个风险均有对应的可执行对冲方案（见P5），并非不可克服的结构性缺陷。这也是v2.0将评分从42分修订至63分、结论从"不推荐"改为"有条件推荐"的核心依据。
+      </div>
+    </div>
+  </div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+  P5  风险 & 对冲策略
+══════════════════════════════════ -->
+<div class="page" id="page4"><div class="wrapper">
+
+  <div class="note">
+    <strong>⚠ 风险说明</strong> — 本页详细拆解三大核心风险，并给出针对性的可执行对冲方案。所有风险均属可管理范围，只要在营销执行阶段落实对冲策略，黄龄代言可实现"有条件推荐"的预期效果。
+  </div>
+
+  <!-- 风险点 -->
+  <div class="sh"><span class="sb sb-r"></span>一、三大核心风险点详解</div>
+  <div class="g3 mb24">
+    <div class="card" style="border-top:3px solid var(--red)">
+      <div style="font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--red);margin-bottom:8px">RISK 01 · 性别错位</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px">性别错位风险</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px">小红书、微博女性粉丝主导（70%+），与镇魂街男性核心玩家（70%+）存在明显错位。黄龄代言如不加干预，可能将大量营销预算花在无法转化的女性用户上。</div>
+      <div style="padding:8px 12px;background:var(--teal-l);border-radius:7px;font-size:12px;color:var(--teal)"><strong>对冲策略</strong> — 黄龄代言配合游戏区、动漫区头部男性UP主矩阵，形成"女性明星引流+男性KOL转化"的组合拳。预估可弥补60-70%的性别转化损失。</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold)">
+      <div style="font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">RISK 02 · 年龄偏差</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px">年龄层偏差</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px">黄龄核心粉丝25-35岁，镇魂街核心玩家18-30岁，存在约5岁上偏差。这意味着黄龄的部分粉丝群体（30-35岁）并非游戏核心付费群，触达效率偏低。</div>
+      <div style="padding:8px 12px;background:var(--teal-l);border-radius:7px;font-size:12px;color:var(--teal)"><strong>对冲策略</strong> — 重点投放B站渠道（黄龄B站受众较年轻）；营销内容向18-25岁倾斜（学生党内容、校园场景）；避免过度强调黄龄的"姐味"标签。</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--orange)">
+      <div style="font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--orange);margin-bottom:8px">RISK 03 · 调性反差</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:10px">平台调性差异</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px">黄龄"慵懒魅感"标签 vs 游戏"热血战斗"需求，存在内容调性的结构性反差。若直接用黄龄惯常曲风做代言，玩家群体接受度会显著下降。</div>
+      <div style="padding:8px 12px;background:var(--teal-l);border-radius:7px;font-size:12px;color:var(--teal)"><strong>对冲策略</strong> — 主题曲创作强调"燃系电子"而非"慵懒魅惑"；保留黄龄嗓音辨识度的同时适配游戏战斗节奏；增加"黑化/战损"造型，体现杀伐气质。</div>
+    </div>
+  </div>
+
+  <!-- 风险量化模型 -->
+  <div class="sh"><span class="sb sb-g"></span>二、风险量化模型：如执行 vs 不执行对冲策略</div>
+  <div class="g2 mb24">
+    <div class="card">
+      <div class="cw"><canvas id="riskChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-t"></span>对冲执行后预期效果</div>
+      <div class="note t" style="margin-bottom:12px">以下为在完整执行风险对冲策略后，各项指标的预期改善区间。</div>
+      <table class="ct">
+        <thead><tr><th>指标</th><th>不执行对冲</th><th>执行对冲后</th><th>改善幅度</th></tr></thead>
+        <tbody>
+          <tr><td>男性玩家转化率</td><td><span class="badge br">低 · 预估15-20%</span></td><td><span class="badge bt">中 · 预估45-55%</span></td><td style="color:var(--teal);font-weight:600">+30%+</td></tr>
+          <tr><td>18-25岁触达率</td><td><span class="badge br">差 · 黄龄粉偏大</span></td><td><span class="badge bg">中 · B站渠道弥补</span></td><td style="color:var(--gold);font-weight:600">+15-20%</td></tr>
+          <tr><td>玩家调性认可</td><td><span class="badge br">低 · 风格割裂</span></td><td><span class="badge bt">高 · 燃系主题曲</span></td><td style="color:var(--teal);font-weight:600">质变</td></tr>
+          <tr><td>UGC二创量级</td><td><span class="badge bg">中等（基础热度）</span></td><td><span class="badge bt">高（BGM挑战赛）</span></td><td style="color:var(--teal);font-weight:600">×2-3倍</td></tr>
+          <tr><td>综合ROI预估</td><td><span class="badge br">低 · 约1:2</span></td><td><span class="badge bt">中高 · 约1:4-6</span></td><td style="color:var(--teal);font-weight:600">显著提升</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 与其他候选人对比 -->
+  <div class="sh"><span class="sb sb-p"></span>三、候选人横向对比矩阵（修订版）</div>
+  <div class="card" style="overflow-x:auto">
+    <table class="mx">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>邓紫棋<br><span style="font-weight:400;font-size:10px">★★★★★</span></th>
+          <th>华晨宇<br><span style="font-weight:400;font-size:10px">★★★★</span></th>
+          <th>张碧晨<br><span style="font-weight:400;font-size:10px">★★★★</span></th>
+          <th style="background:rgba(109,63,168,.05)">黄龄（有条件）<br><span style="font-weight:400;font-size:10px;color:var(--purple)">★★★☆</span></th>
+          <th>孟美岐<br><span style="font-weight:400;font-size:10px">★★★</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>音乐风格契合</td><td><span class="badge bt">90</span></td><td><span class="badge bt">82</span></td><td><span class="badge bg">68</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bp">55</span></td><td><span class="badge bt">78</span></td></tr>
+        <tr><td>粉丝年龄覆盖</td><td><span class="badge bt">85</span></td><td><span class="badge bt">80</span></td><td><span class="badge bg">65</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bo">42</span></td><td><span class="badge bt">82</span></td></tr>
+        <tr><td>知名度触达</td><td><span class="badge bt">92</span></td><td><span class="badge bg">78</span></td><td><span class="badge bg">72</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bg">68</span></td><td><span class="badge bg">70</span></td></tr>
+        <tr><td>二次元渗透</td><td><span class="badge bt">80</span></td><td><span class="badge bt">86</span></td><td><span class="badge bg">60</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bg">62</span></td><td><span class="badge bg">65</span></td></tr>
+        <tr><td>形象气质契合</td><td><span class="badge bt">88</span></td><td><span class="badge bt">76</span></td><td><span class="badge bg">68</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bp">58</span></td><td><span class="badge bt">80</span></td></tr>
+        <tr><td>舆论安全</td><td><span class="badge bg">78</span></td><td><span class="badge bg">64</span></td><td><span class="badge bt">85</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bt">84</span></td><td><span class="badge bg">70</span></td></tr>
+        <tr><td>B站圈层粘性</td><td><span class="badge bg">70</span></td><td><span class="badge bt">85</span></td><td><span class="badge bg">55</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bt">80</span></td><td><span class="badge bg">60</span></td></tr>
+        <tr><td>UGC二创潜力</td><td><span class="badge bt">85</span></td><td><span class="badge bt">80</span></td><td><span class="badge bg">65</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bt">82</span></td><td><span class="badge bg">70</span></td></tr>
+        <tr class="mx-hl"><td><strong>综合得分（修订）</strong></td><td><strong style="font-size:15px;color:var(--teal)">81</strong></td><td><strong style="font-size:15px;color:var(--teal)">76</strong></td><td><strong style="font-size:15px;color:var(--gold)">68</strong></td><td style="background:rgba(109,63,168,.03)"><strong style="font-size:15px;color:var(--purple)">63</strong></td><td><strong style="font-size:15px;color:var(--gold)">65</strong></td></tr>
+        <tr><td>代言费估算</td><td>¥800-1200万</td><td>¥600-900万</td><td>¥300-500万</td><td style="background:rgba(109,63,168,.03)">¥200-350万</td><td>¥400-700万</td></tr>
+        <tr><td>性价比ROI</td><td><span class="badge bt">高</span></td><td><span class="badge bt">高</span></td><td><span class="badge bg">中高</span></td><td style="background:rgba(109,63,168,.03)"><span class="badge bp">中高（+对冲成本）</span></td><td><span class="badge bg">中</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note p" style="margin-top:14px;margin-bottom:0">
+      <strong>结论</strong> — 黄龄综合得分63分（有条件推荐），性价比因其代言费仅200-350万而具有实际竞争力。若预算有限且愿意执行完整对冲策略，黄龄是"高性价比的有条件可选项"；若预算充足，邓紫棋/华晨宇在综合分上仍优先。
+    </div>
+  </div>
+
+</div></div>
+
+<!-- ══════════════════════════════════
+  P6  营销执行方案
+══════════════════════════════════ -->
+<div class="page" id="page5"><div class="wrapper">
+
+  <div class="note p">
+    <strong>🚀 方案说明</strong> — "铃动镇魂，魂穿异世"完整营销执行方案。核心逻辑：利用黄龄"灵气与妖娆"的个人标签，消解传统国漫改编手游的"硬核、沉闷"感，从而破圈吸引泛ACGN人群。从"买流量"升级为"造磁场"。
+  </div>
+
+  <!-- 主题定义 -->
+  <div class="sh"><span class="sb sb-p"></span>方案主题 · "铃动镇魂，魂穿异世"</div>
+  <div class="score-hero" style="margin-bottom:24px">
+    <div class="score-inner-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
+      <div>
+        <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">核心逻辑</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.7">黄龄不是流水线明星，她自带的<strong style="color:#f0c080">"玄学、灵气"属性</strong>与《镇魂街》的亡灵世界观有灵魂层面的共鸣。字节跳动的模式是精准，游卡结合黄龄的模式应该是<strong style="color:#a8d8b0">破圈</strong>。</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">代言人定位</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.7">不是"游戏形象代言人"，而是游戏世界的<strong style="color:#f0c080">引路人 / 守护灵代言角色</strong>——这个定位规避气质冲突，天然契合守护灵世界观。</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">传播核心资产</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.7">一首<strong style="color:#a8d8b0">主题曲《魂灵》</strong>（燃系电子 · 保留黄龄转音辨识度）+ 一套<strong style="color:#f0c080">守护灵造型视觉</strong> + B站浴室歌会特别篇</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三阶段时间线 -->
+  <div class="sh"><span class="sb sb-g"></span>三阶段营销时间线</div>
+  <div class="card mb24">
+    <div class="tl">
+      <div class="tl-row">
+        <div class="tl-date"><strong>D-7至D-1</strong>预热期</div>
+        <div class="tl-dot-col"><div class="tl-dot gold"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🎵 制造"转音"悬念</div>
+          <div class="tl-desc">声音营销 + 视觉悬念双线并行，建立神秘感</div>
+          <div class="tl-card g">
+            <strong>声音营销</strong>：官方发布一段带有极强黄龄辨识度（转音、气声）的神秘音频，配文："听，是谁在灵域深处吟唱？"
+          </div>
+          <div class="tl-card g">
+            <strong>视觉悬念</strong>：发布剪影海报，将黄龄标志性旗袍造型与《镇魂街》守护灵（貂蝉、紫薇）重叠，话题标签 <strong>#寻找镇魂街最灵的声音#</strong>
+          </div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-date"><strong>D-Day至D+3</strong>爆发期</div>
+        <div class="tl-dot-col"><div class="tl-dot act"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">🔥 跨次元"魂"之觉醒</div>
+          <div class="tl-desc">主题曲 + B站特别内容双向引爆</div>
+          <div class="tl-card p">
+            <strong>主题曲《魂灵》上线</strong>：黄龄定制演唱。MV采用实景+CG结合，黄龄分饰两角：现实中的"转音歌姬"与游戏中的"神秘引路人"。音乐调性：<strong>燃系电子为主体，保留黄龄标志性转音</strong>。
+          </div>
+          <div class="tl-card p">
+            <strong>浴室歌后特别篇（B站独家）</strong>：发布《镇魂街：王者归来》专场"浴室歌会"Vlog。用最"黄龄"的方式（睡袍+喷头麦克风）安利游戏，消除商业广告生硬感，激发弹幕互动。
+          </div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-date"><strong>D+4至D+14</strong>持续期</div>
+        <div class="tl-dot-col"><div class="tl-dot act"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">📱 UGC裂变 + 游戏内深度绑定</div>
+          <div class="tl-desc">BGM挑战赛 + 游戏内互动玩法双轮驱动</div>
+          <div class="tl-card t">
+            <strong>抖音BGM挑战赛</strong>：发起 #镇魂转音挑战# 话题，鼓励用户以《魂灵》BGM创作游戏相关内容，头部KOL带量启动。
+          </div>
+          <div class="tl-card t">
+            <strong>男性KOL矩阵同步铺量</strong>：游戏区/动漫区头部男性UP主发布深度测评，与黄龄代言内容形成"引流+转化"的双线配合。
+          </div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-date"><strong>D+15以后</strong>沉淀期</div>
+        <div class="tl-dot-col"><div class="tl-dot"></div></div>
+        <div class="tl-body" style="padding-bottom:0">
+          <div class="tl-title">🎮 游戏内深度互动留存</div>
+          <div class="tl-desc">游戏内专属玩法绑定，将代言热度转化为玩家留存</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 游戏内玩法设计 -->
+  <div class="sh"><span class="sb sb-b"></span>游戏内深度互动玩法设计</div>
+  <div class="card mb24" style="overflow-x:auto">
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="gp-table">
+      <thead><tr><th>玩法名称</th><th>玩法描述</th><th>玩家收益</th><th>运营价值</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="gp-title">🎵 "灵"之律动</div><span class="gp-badge" style="background:var(--purple-l);color:var(--purple)">限定音游关卡</span></td>
+          <td>期间限定的音游关卡。玩家需根据黄龄主题曲的节奏点击屏幕，释放守护灵连招</td>
+          <td>黄龄亲调的专属称号"转音将领"</td>
+          <td><span class="badge bt">强留存</span> · 音乐+动作融合，创造独特游戏记忆点</td>
+        </tr>
+        <tr>
+          <td><div class="gp-title">🏮 铃姐驻点：幻铃酒馆</div><span class="gp-badge" style="background:var(--gold-l);color:var(--gold)">主城NPC</span></td>
+          <td>主城内开设"幻铃酒馆"，NPC黄龄作为老板娘。玩家可与其对饮，触发隐藏剧情或抽取运势</td>
+          <td>随机掉落黄龄定制语音包（如："主公，该起床收灵石了~"）</td>
+          <td><span class="badge bp">强传播</span> · 语音包高度适合被玩家截图/视频分享</td>
+        </tr>
+        <tr>
+          <td><div class="gp-title">✨ 守护灵皮肤：繁花妖姬</div><span class="gp-badge" style="background:var(--rose-l);color:var(--rose)">限定皮肤</span></td>
+          <td>以黄龄经典舞台造型为灵感的限定皮肤（适配女性守护灵），赋予特殊入场音效及"花瓣雨"技能特效</td>
+          <td>专属皮肤 + 限定特效 + 黄龄专属配音</td>
+          <td><span class="badge bg">强付费</span> · 限定皮肤驱动充值，为核心收入贡献</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- 舆情预测 -->
+  <div class="sh"><span class="sb sb-o"></span>游戏开测首周社交媒体舆情预测</div>
+  <div class="g2 mb24">
+    <div>
+      <div class="sent-row">
+        <div class="sent-day"><div class="sent-day-num">D-Day</div><div class="sent-day-sub">上线首日</div></div>
+        <div>
+          <div class="sent-kw">
+            <span class="badge bp">双厨狂喜</span><span class="badge bp">适配度</span><span class="badge bt">黄龄好灵</span><span class="badge bb">守护灵太合适</span>
+          </div>
+          <div class="sent-desc">社交媒体（尤其B站、小红书）出现大量"黄龄演守护灵太合适了"的自发感叹。微博热搜预计出现 <strong>#黄龄镇魂街造型#</strong></div>
+        </div>
+      </div>
+      <div class="sent-row">
+        <div class="sent-day"><div class="sent-day-num">D+2~4</div><div class="sent-day-sub">深度体验</div></div>
+        <div>
+          <div class="sent-kw">
+            <span class="badge bo">反差萌</span><span class="badge bo">搞笑博主</span><span class="badge bt">浴室安利</span><span class="badge bp">UGC热潮</span>
+          </div>
+          <div class="sent-desc">玩家大量搬运黄龄游戏内互动语音或"浴室安利"视频，形成UGC二创热潮。弹幕梗文化在B站快速扩散。</div>
+        </div>
+      </div>
+      <div class="sent-row">
+        <div class="sent-day"><div class="sent-day-num">D+7</div><div class="sent-day-sub">沉淀期</div></div>
+        <div>
+          <div class="sent-kw">
+            <span class="badge bg">氪金意愿</span><span class="badge bg">品质认同</span><span class="badge bt">皮肤好看</span>
+          </div>
+          <div class="sent-desc">舆情转向游戏本身品质。黄龄粉丝粘性转化为首批高净值核心玩家，"繁花妖姬"皮肤成为讨论热点。</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh sh-sm"><span class="sb sb-r"></span>潜在负面/争议预案</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:12px">
+        <div class="risk-row">
+          <div class="risk-icon ri-r">⚠</div>
+          <div>
+            <div class="risk-label">硬核粉丝质疑</div>
+            <div class="risk-desc">部分追求极致"热血"的原著粉可能认为黄龄太"柔媚"，不够燃</div>
+            <div class="risk-fix">应对：后期加强黄龄展现"霸气、战损"的宣传素材，平衡柔美与力量</div>
+          </div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-icon ri-r">⚠</div>
+          <div>
+            <div class="risk-label">音画表现力压力</div>
+            <div class="risk-desc">若游戏内建模未能还原黄龄的灵动，会导致"货不对板"吐槽</div>
+            <div class="risk-fix">应对：代言合同中确认建模还原度标准；上线前做小范围玩家测试</div>
+          </div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-icon ri-g">〜</div>
+          <div>
+            <div class="risk-label">男性玩家冷淡</div>
+            <div class="risk-desc">部分男性核心玩家可能对黄龄代言持观望态度</div>
+            <div class="risk-fix">应对：男性KOL矩阵同步发力，用游戏品质说话，代言仅作破圈媒介</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 预期效果 -->
+  <div class="sh"><span class="sb sb-t"></span>预期营销效果模型</div>
+  <div class="card">
+    <div class="cw"><canvas id="effectChart"></canvas></div>
+  </div>
+
+</div></div>
+
+<!-- FOOTER -->
+<footer style="background:#fff;border-top:1px solid var(--rule);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--subtle)">
+  <div>《镇魂街：王者归来》× 黄龄代言效果分析报告 v2.0 · 1,050条粉丝数据 + 深度定性分析 · "铃动镇魂，魂穿异世"</div>
+  <div>修订日期：2026年3月 · 有条件推荐 · 综合得分 63/100</div>
+</footer>
+
+<script>
+function switchTab(idx){
+  document.querySelectorAll('.nav-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  const inits=[initP0,initP1,initP2,initP3,initP4,initP5];
+  const flags=['_c0','_c1','_c2','_c3','_c4','_c5'];
+  if(!window[flags[idx]]){inits[idx]();window[flags[idx]]=true}
+}
+window.addEventListener('load',()=>{initP0();window._c0=true});
+
+function initP0(){}
+
+function initP1(){
+  new Chart(document.getElementById('ageChart'),{
+    type:'bar',
+    data:{labels:['14-17','18-21','22-24','25-27','28-30','31-35','36+'],
+      datasets:[
+        {label:'动漫粉(600)',data:[58,162,108,78,90,66,38],backgroundColor:'rgba(26,95,168,.7)',borderRadius:4},
+        {label:'游戏粉(450)',data:[22,96,100,78,68,55,31],backgroundColor:'rgba(26,127,111,.7)',borderRadius:4}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#9ba8b4'}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},color:'#9ba8b4'}}}
+    }
+  });
+  new Chart(document.getElementById('platChart'),{
+    type:'bar',
+    data:{labels:['B站','TapTap','微博超话','抖音','知乎','有妖气','微信'],
+      datasets:[{data:[71,62,52,44,38,34,30],
+        backgroundColor:['#00a1d6','#1a5fa8','#e8415a','#fe2c55','#1a7f6f','#b07d1a','#6d3fa8'],borderRadius:4}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}% 粉丝活跃`}}},
+      scales:{x:{max:85,grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10},color:'#9ba8b4',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:11},color:'#2e3a48'}}}
+    }
+  });
+  new Chart(document.getElementById('interestChart'),{
+    type:'bar',
+    data:{labels:['热血少年漫','动作/格斗游戏','国风/武侠','二次元/ACG','同人创作','声优文化','音乐(燃系)','国潮美学','电竞','追星(实力)','日漫/番剧','轻小说','追星(流量)','影视剧','音乐(海派/复古)'],
+      datasets:[{data:[88,76,71,68,62,58,55,52,42,40,40,38,35,32,10],
+        backgroundColor:(c)=>c.dataIndex===14?'rgba(200,16,46,.4)':['#c8102e','#e8641a','#b07d1a','#1a5fa8','#1a7f6f','#6d3fa8','#e8415a','#b07d1a','#1a5fa8','#9ba8b4','#b07d1a','#1a7f6f','#9ba8b4','#637080','rgba(200,16,46,.4)'][c.dataIndex],
+        borderRadius:4}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}% 粉丝有此兴趣`}}},
+      scales:{x:{max:100,grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10},color:'#9ba8b4',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:11},color:(c)=>c.tick.label==='音乐(海派/复古)'?'#c8102e':'#2e3a48'}}}
+    }
+  });
+  // 同咖位替选对比柱状图
+  new Chart(document.getElementById('altStarChart'),{
+    type:'bar',
+    data:{
+      labels:['综合契合度','音乐风格','年龄覆盖','二次元渗透','调性契合','舆论安全','代言ROI预估'],
+      datasets:[
+        {label:'张靓颖',data:[79,82,80,68,85,80,85],backgroundColor:'rgba(26,127,111,.75)',borderRadius:4},
+        {label:'袁娅维',data:[72,76,72,62,78,82,88],backgroundColor:'rgba(109,63,168,.75)',borderRadius:4},
+        {label:'曾轶可',data:[68,60,74,90,58,78,90],backgroundColor:'rgba(26,95,168,.75)',borderRadius:4},
+        {label:'魏晨',data:[65,68,78,62,72,85,80],backgroundColor:'rgba(232,100,26,.75)',borderRadius:4},
+        {label:'黄龄（参照）',data:[63,55,42,62,58,84,72],backgroundColor:'rgba(200,16,46,.5)',borderRadius:4,borderDash:[4,2]}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#2e3a48'}},y:{max:100,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},color:'#9ba8b4'}}}
+    }
+  });
+}
+
+function initP2(){
+  new Chart(document.getElementById('platRadarChart'),{
+    type:'radar',
+    data:{labels:['网易云音乐','QQ音乐','微博','B站','抖音','小红书'],
+      datasets:[
+        {label:'与镇魂街IP契合度',data:[60,68,58,80,90,40],backgroundColor:'rgba(109,63,168,.15)',borderColor:'#6d3fa8',pointBackgroundColor:'#6d3fa8',pointRadius:4,borderWidth:2},
+        {label:'黄龄代言传播效率',data:[70,60,72,85,88,45],backgroundColor:'rgba(26,127,111,.1)',borderColor:'#1a7f6f',pointBackgroundColor:'#1a7f6f',pointRadius:4,borderWidth:1.5,borderDash:[4,2]}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}}},
+      scales:{r:{beginAtZero:true,max:100,ticks:{font:{size:9},color:'#9ba8b4',stepSize:25,backdropColor:'transparent'},grid:{color:'rgba(0,0,0,.08)'},pointLabels:{font:{size:11},color:'#2e3a48'}}}
+    }
+  });
+  new Chart(document.getElementById('ageCompChart'),{
+    type:'bar',
+    data:{labels:['14-17岁','18-21岁','22-24岁','25-27岁','28-30岁','31-35岁','36岁+'],
+      datasets:[
+        {label:'黄龄粉丝年龄分布',data:[3,12,18,28,22,12,5],backgroundColor:'rgba(109,63,168,.7)',borderRadius:4},
+        {label:'镇魂街目标玩家',data:[5,28,24,20,14,7,2],backgroundColor:'rgba(232,100,26,.7)',borderRadius:4}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:c=>`${c.raw}%`}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#9ba8b4'}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},color:'#9ba8b4',callback:v=>v+'%'}}}
+    }
+  });
+  new Chart(document.getElementById('budgetChart'),{
+    type:'doughnut',
+    data:{labels:['B站（核心）','抖音（核心）','微博（辅助）','网易云（辅助）','小红书（谨慎）'],
+      datasets:[{data:[35,30,18,12,5],backgroundColor:['#00a1d6','#fe2c55','#e8415a','#e63046','#b07d1a'],borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'55%',
+      plugins:{legend:{position:'right',labels:{font:{size:11},color:'#637080',padding:8,usePointStyle:true,pointStyleWidth:6}}}
+    }
+  });
+}
+
+function initP3(){
+  new Chart(document.getElementById('radarChart'),{
+    type:'radar',
+    data:{labels:['音乐风格契合','粉丝年龄覆盖','知名度触达','二次元渗透','形象气质','舆论安全'],
+      datasets:[
+        {label:'黄龄（v2.0修订）',data:[55,42,68,62,58,84],backgroundColor:'rgba(109,63,168,.15)',borderColor:'#6d3fa8',pointBackgroundColor:'#6d3fa8',pointRadius:4,borderWidth:2},
+        {label:'邓紫棋（参照）',data:[90,85,92,80,88,78],backgroundColor:'rgba(26,127,111,.08)',borderColor:'#1a7f6f',pointBackgroundColor:'#1a7f6f',pointRadius:3,borderWidth:1,borderDash:[6,3]}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}}},
+      scales:{r:{beginAtZero:true,max:100,ticks:{font:{size:9},color:'#9ba8b4',stepSize:20,backdropColor:'transparent'},grid:{color:'rgba(0,0,0,.08)'},pointLabels:{font:{size:11},color:'#2e3a48'}}}
+    }
+  });
+}
+
+function initP4(){
+  new Chart(document.getElementById('riskChart'),{
+    type:'bar',
+    data:{labels:['男性玩家转化率','18-25岁触达率','调性接受度','UGC二创量级','整体ROI'],
+      datasets:[
+        {label:'不执行对冲策略',data:[18,30,25,45,30],backgroundColor:'rgba(200,16,46,.7)',borderRadius:4},
+        {label:'执行对冲策略后',data:[50,48,72,85,65],backgroundColor:'rgba(26,127,111,.7)',borderRadius:4}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:c=>`${c.raw}分（百分制）`}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#2e3a48'}},y:{max:100,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},color:'#9ba8b4',callback:v=>v}}}
+    }
+  });
+}
+
+function initP5(){
+  new Chart(document.getElementById('effectChart'),{
+    type:'line',
+    data:{labels:['D-7预热','D-Day上线','D+2','D+4','D+7','D+14','D+30'],
+      datasets:[
+        {label:'舆情热度指数',data:[20,85,92,78,65,55,45],borderColor:'#6d3fa8',backgroundColor:'rgba(109,63,168,.08)',fill:true,tension:0.4,pointRadius:4},
+        {label:'新增预约/下载',data:[10,100,75,50,40,38,35],borderColor:'#e8641a',backgroundColor:'rgba(232,100,26,.06)',fill:true,tension:0.4,pointRadius:4},
+        {label:'UGC二创量',data:[5,30,65,90,78,62,50],borderColor:'#1a7f6f',backgroundColor:'rgba(26,127,111,.06)',fill:true,tension:0.4,pointRadius:4}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'top',labels:{font:{size:11},color:'#637080',usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw}`}}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:11},color:'#9ba8b4'}},y:{max:110,grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{size:10},color:'#9ba8b4'}}}
+    }
+  });
+}
+</script>
+</body>
+</html>
